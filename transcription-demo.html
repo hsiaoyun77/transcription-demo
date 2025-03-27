@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AssemblyAI Customizable Transcription Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 650px;
+      margin: 20px auto;
+      background-color: #f7f9fb;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow:0 3px 6px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #333;
+    }
+    .option {
+      margin: 10px 0;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #008CBA;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #007b9e;
+    }
+    #loader {
+      display:none;
+      color: #007bff;
+      margin-top:15px;
+    }
+    #result {
+      margin-top:20px;
+      padding:15px;
+      background:#fff;
+      border-radius:5px;
+      box-shadow:0 1px 4px rgba(0,0,0,0.1);
+      white-space:pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+<h2>AssemblyAI Customizable Transcription Demo</h2>
+
+<input type="file" id="audioFile" accept="audio/*"><br>
+
+<div class="option">
+  <input type="checkbox" id="diarization">
+  <label for="diarization">Speaker Diarization (Identify speakers)</label>
+</div>
+
+<div class="option">
+  <input type="checkbox" id="auto_punctuation" checked>
+  <label for="auto_punctuation">Automatic Punctuation</label>
+</div>
+
+<div class="option">
+  <input type="checkbox" id="summarization">
+  <label for="summarization">Include Transcript Summarization</label>
+</div>
+
+<div class="option">
+  <input type="checkbox" id="topics">
+  <label for="topics">Detect Topics (IAB Categories)</label>
+</div>
+
+<button onclick="transcribeAudio()">Transcribe Audio</button>
+
+<div id="loader">Transcribing... please wait.</div>
+<div id="result"></div>
+
+<script>
+function transcribeAudio() {
+  const fileInput = document.getElementById('audioFile');
+  const loader = document.getElementById('loader');
+  const result = document.getElementById('result');
+
+  if (!fileInput.files[0]) {
+    alert("Please select an audio file first.");
+    return;
+  }
+
+  const diarization = document.getElementById('diarization').checked;
+  const punctuation = document.getElementById('auto_punctuation').checked;
+  const summarization = document.getElementById('summarization').checked;
+  const topics = document.getElementById('topics').checked;
+
+  loader.style.display = 'block';
+  result.textContent = '';
+
+  // Simulated transcription response
+  setTimeout(() => {
+    let demoResult = "✅ Simulated Transcription Result for: " + fileInput.files[0].name + "\n\n";
+
+    demoResult += "🛠️ Selected Options:\n";
+    demoResult += "- Speaker Diarization: " + (diarization ? "✅ Enabled" : "❌ Disabled") + "\n";
+    demoResult += "- Automatic Punctuation: " + (punctuation ? "✅ Enabled" : "❌ Disabled") + "\n";
+    demoResult += "- Transcript Summarization: " + (summarization ? "✅ Enabled" : "❌ Disabled") + "\n";
+    demoResult += "- Topic Detection (IAB): " + (topics ? "✅ Enabled" : "❌ Disabled") + "\n\n";
+
+    demoResult += "🎙️ Transcript:\n";
+    demoResult += "[Replace this simulated content with actual API response from AssemblyAI.]\n\n";
+
+    if (summarization) {
+      demoResult += "📝 Summary:\nThe audio discusses key points related to [simulated summary content].\n\n";
+    }
+
+    if (topics) {
+      demoResult += "📚 Detected Topics (IAB Categories):\n- Education\n- Science\n\n";
+    }
+
+    if (diarization) {
+      demoResult += "👥 Speakers Identified:\n- Speaker 1: [00:00 - 00:15]\n- Speaker 2: [00:16 - 00:30]\n\n";
+    }
+
+    loader.style.display = 'none';
+    result.textContent = demoResult;
+
+  }, 3000); // simulate 3 seconds delay
+}
+</script>
+
+</body>
+</html>
